@@ -9,18 +9,19 @@ const connection = mysql.createConnection({
     database: 'bamazon'
 })
 
-connection.connect()
+connection.connect();
 
 //Show the mysqp table as a table:
 showTable = () => {
     connection.query('SELECT * FROM products', (err, res) => {
         if (err) throw err;
         console.table(res);
+        startApp();
     })
 }
-
+showTable();
 //Inquirer prompt function 
-prompt1 = () => {
+startApp = () => {
     inquirer.prompt({
         type: 'input',
         message: 'Select an item Id which you would like to purchase',
@@ -32,21 +33,34 @@ prompt1 = () => {
             if (err) throw err;
             if (res.length === 0) {
                 console.log("Product does not exist, please select a product from above");
+                startApp();
             }
             else {
                 inquirer.prompt({
                     type: 'input',
                     message: 'How many units would you like to purchase of this product Id?',
                     name: 'userBuy'
-                }).then(answer => {
-                    let selectedQuantity = answer.userBuy;
-                    if (selectedQuantity > res[0].stock_quantity) {
+                }).then(answer2 => {
+                    let selectedQuantity = answer2.userBuy;
+                    //console.log(res[0].stock_quantity)
+                    if (selectedQuantity >= res[0].stock_quantity) {
                         console.log("Our apologies, we only have " + res[0].stock_quantity + " left in our inventory");
+                        startApp();
+                    }
+                    else {
+
+                        console.log(res[0].product_name + " purchased");
+                        console.log(selectedQuantity + " purchased for the price of " + res[0].price + "each");
+                        console.log("Thank you for purchasing with us today");
+                        connection.end();
+                        //let newQuantity = res[0].stock_quantity - selectedQuantity;
+                        // connection.query("UPDATE products SET stock_quantity = " + newQuantity + "WHERE id = " + res[0].id, (err, res) => {
+                        //     if (err) throw err;
+
+                        // })
                     }
                 })
             }
-            //prompt1();
         })
     })
 }
-prompt1();
