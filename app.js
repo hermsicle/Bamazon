@@ -30,9 +30,23 @@ prompt1 = () => {
         //Grab the data from the mysql conneection:
         connection.query("SELECT * FROM products WHERE id = ?", choiceId, (err, res) => {
             if (err) throw err;
-            console.log("The item you have selected is: " + choiceId);
+            if (res.length === 0) {
+                console.log("Product does not exist, please select a product from above");
+            }
+            else {
+                inquirer.prompt({
+                    type: 'input',
+                    message: 'How many units would you like to purchase of this product Id?',
+                    name: 'userBuy'
+                }).then(answer => {
+                    let selectedQuantity = answer.userBuy;
+                    if (selectedQuantity > res[0].stock_quantity) {
+                        console.log("Our apologies, we only have " + res[0].stock_quantity + " left in our inventory");
+                    }
+                })
+            }
+            //prompt1();
         })
     })
 }
-
 prompt1();
