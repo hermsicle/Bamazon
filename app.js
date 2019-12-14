@@ -1,11 +1,13 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
+const myPassword = require('dotenv').config();
+
 
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '7upisyummY',
+    password: myPassword,
     database: 'bamazon'
 })
 
@@ -44,8 +46,8 @@ startApp = () => {
                     let selectedQuantity = answer2.userBuy;
                     let stockQuantity = res[0].stock_quantity;
                     //console.log(res[0].stock_quantity)
-                    console.log(selectedQuantity);
-                    console.log(res[0].stock_quantity);
+                    //console.log(selectedQuantity);
+                    //console.log(res[0].stock_quantity);
                     if (selectedQuantity > stockQuantity) {
                         console.log("Our apologies, we only have " + res[0].stock_quantity + " left in our inventory");
                         startApp();
@@ -55,12 +57,16 @@ startApp = () => {
                         console.log(res[0].product_name + " purchased");
                         console.log(selectedQuantity + " purchased for the price of " + res[0].price + "each");
                         console.log("Thank you for purchasing with us today");
-                        connection.end();
 
-                        //let newQuantity = res[0].stock_quantity - selectedQuantity;
-                        // connection.query("UPDATE products SET stock_quantity = " + newQuantity + "WHERE id = " + res[0].id, (err, res) => {
-                        //     if (err) throw err;
-                        // })
+                        let newQuantity = stockQuantity - selectedQuantity;
+                        console.log(newQuantity);
+                        // function updateStock(stock, id) {
+                        //     connection.query("UPDATE products SET ? WHERE ??", [{ stock_quantity: stock }, { id: id }], err => {
+                        //         if (err) throw err;
+                        //     })
+                        // }
+                        // updateStock()
+                        connection.end();
                     }
                 })
             }
