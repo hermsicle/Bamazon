@@ -16,7 +16,7 @@ The products table should have each of the following columns:
 -price (cost to customer)
 <br>
 -stock_quantity (how much of the product is available in stores)
--Populate this database with around 10 different products. (i.e. Insert      <br>"mock" data rows into this database and table).
+-Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
 
 Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
