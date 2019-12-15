@@ -6,7 +6,7 @@ Create a MySQL Database called bamazon.
 Then create a Table inside of that database called products.
 <li>
 The products table should have each of the following columns:
-<li>
+<li></li>
 -item_id (unique id for each product)
 <li>
 -product_name (Name of product)
