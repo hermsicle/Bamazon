@@ -2,22 +2,22 @@
 <h2>Challenge #1</h2>
 
 Create a MySQL Database called bamazon.
-
+<ul>
 Then create a Table inside of that database called products.
-
+<li>
 The products table should have each of the following columns:
-<br>
+<li>
 -item_id (unique id for each product)
-<br>
+<li>
 -product_name (Name of product)
-<br>
+<li>
 -department_name
-<br>
+<li>
 -price (cost to customer)
-<br>
+<li>
 -stock_quantity (how much of the product is available in stores)
 -Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
-
+</ul>
 Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
 The app should then prompt users with two messages.
