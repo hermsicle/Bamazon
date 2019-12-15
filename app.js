@@ -57,6 +57,8 @@ startApp = () => {
                         console.log("");
                         console.log(res[0].product_name + " purchased");
                         console.log(quantity + " qty @ $" + res[0].price);
+                        var price = quantity * res[0].price;
+                        console.log("Total price is : $" + price)
 
                         var newQuantity = res[0].stock_quantity - quantity;
                         connection.query(
