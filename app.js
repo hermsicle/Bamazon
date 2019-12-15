@@ -54,13 +54,25 @@ startApp = () => {
                         );
                         startApp();
                     } else {
-                        console.log(res[0].product_name + " purchased");
-                        console.log(quantity + " purchased for the price of " + res[0].price + "each");
-                        console.log("Thank you for purchasing with us today");
+                        console.log("");
+                        console.log(res[0].products_name + " purchased");
+                        console.log(quantity + " qty @ $" + res[0].price);
 
-                        let newQuantity = quantity - res[0].stock_quantity;
-                        console.log(newQuantity);
-                        connection.end();
+                        var newQuantity = res[0].stock_quantity - quantity;
+                        connection.query(
+                            "UPDATE products SET stock_quantity = " +
+                            newQuantity +
+                            " WHERE id = " +
+                            res[0].id,
+                            function (err, resUpdate) {
+                                if (err) throw err;
+                                console.log("");
+                                console.log("Your Order has been Processed");
+                                console.log("Thank you for Shopping with us...!");
+                                console.log("");
+                                connection.end();
+                            }
+                        )
                     }
                 })
             }
